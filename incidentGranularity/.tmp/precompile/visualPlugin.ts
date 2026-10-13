@@ -5,8 +5,8 @@ import VisualConstructorOptions = powerbiVisualsApi.extensibility.visual.VisualC
 import DialogConstructorOptions = powerbiVisualsApi.extensibility.visual.DialogConstructorOptions;
 var powerbiKey: any = "powerbi";
 var powerbi: any = window[powerbiKey];
-var incidentGranularity11890C53A0BC44F29AEE1DC0DE1D219F: IVisualPlugin = {
-    name: 'incidentGranularity11890C53A0BC44F29AEE1DC0DE1D219F',
+var incidentGranularity: IVisualPlugin = {
+    name: 'incidentGranularity',
     displayName: 'IncidentGranularity',
     class: 'Visual',
     apiVersion: '5.11.0',
@@ -27,6 +27,6 @@ var incidentGranularity11890C53A0BC44F29AEE1DC0DE1D219F: IVisualPlugin = {
 if (typeof powerbi !== "undefined") {
     powerbi.visuals = powerbi.visuals || {};
     powerbi.visuals.plugins = powerbi.visuals.plugins || {};
-    powerbi.visuals.plugins["incidentGranularity11890C53A0BC44F29AEE1DC0DE1D219F"] = incidentGranularity11890C53A0BC44F29AEE1DC0DE1D219F;
+    powerbi.visuals.plugins["incidentGranularity"] = incidentGranularity;
 }
-export default incidentGranularity11890C53A0BC44F29AEE1DC0DE1D219F;
+export default incidentGranularity;
