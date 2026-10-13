@@ -1,0 +1,17 @@
+{
+		"version": "1.0.1.0",
+		"author": {"name":"Christian Stone","email":"christianstone.business@gmail.com"},
+		"resources": [
+			{
+				"resourceId": "rId0",
+				"sourceType": 5,
+				"file": "resources/incidentGranularity11890C53A0BC44F29AEE1DC0DE1D219F.pbiviz.json"
+			}
+		],
+		"visual": {"name":"incidentGranularity","displayName":"IncidentGranularity","guid":"incidentGranularity11890C53A0BC44F29AEE1DC0DE1D219F","visualClassName":"Visual","version":"1.0.1.0","description":"Incident count per month, day of week, or hour","supportUrl":"https://example.com","gitHubUrl":""},
+		"metadata": {
+			"pbivizjson": {
+				"resourceId": "rId0"
+			}
+		}
+	}

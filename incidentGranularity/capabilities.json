@@ -1,0 +1,21 @@
+{
+  "privileges": [],
+  "dataRoles": [
+    { "displayName": "Incident date/time", "name": "incidentTime", "kind": "Grouping" },
+    { "displayName": "Incident ID", "name": "incidentId", "kind": "Grouping" }
+  ],
+  "dataViewMappings": [
+    {
+      "table": {
+        "rows": {
+          "select": [
+            { "for": { "in": "incidentTime" } },
+            { "for": { "in": "incidentId" } }
+          ],
+          "dataReductionAlgorithm": { "window": { "count": 30000 } }
+        }
+      }
+    }
+  ],
+  "tooltips": { "supportedTypes": { "default": true } }
+}
