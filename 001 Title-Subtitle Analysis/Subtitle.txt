@@ -1,0 +1,141 @@
+Subtitle - //NAME OF GRAPH = 
+VAR PctChange = [Period Change %]
+VAR MonthsAboveAvg = [Months Above Average]
+ 
+VAR MonthlyTable =
+    ADDCOLUMNS(
+        SUMMARIZE(
+            //NAME OF TABLE,
+            //NAME OF TABLE[SnapshotDate]
+        ),
+        "YearMonth",
+            FORMAT(//NAME OF TABLE[SnapshotDate], "YYYY-MM"),
+        "@MonthlyValue",
+            VAR CurrentDate = //NAME OF TABLE[SnapshotDate]
+            VAR CurrentYear = YEAR(CurrentDate)
+            VAR CurrentMonth = MONTH(CurrentDate)
+            VAR LastDateInMonth =
+                CALCULATE(
+                    MAX(//NAME OF TABLE[SnapshotDate]),
+                    FILTER(
+                        ALL(//NAME OF TABLE[SnapshotDate]),
+                        YEAR(//NAME OF TABLE[SnapshotDate]) = CurrentYear
+                            && MONTH(//NAME OF TABLE[SnapshotDate]) = CurrentMonth
+                    )
+                )
+            RETURN
+                CALCULATE(
+                    SUM(//NAME OF TABLE[//NAME OG COL]),
+                    //NAME OF TABLE[SnapshotDate] = LastDateInMonth
+                )
+    )
+ 
+VAR WorstMonth =
+    TOPN(
+        1,
+        MonthlyTable,
+        [@MonthlyValue],
+        DESC
+    )
+ 
+VAR BestMonth =
+    TOPN(
+        1,
+        MonthlyTable,
+        [@MonthlyValue],
+        ASC
+    )
+ 
+VAR BestScore =
+    MAXX(BestMonth, [@MonthlyValue])
+ 
+VAR WorstScore =
+    MAXX(WorstMonth, [@MonthlyValue])
+ 
+VAR BestMonthName =
+    MAXX(BestMonth, [YearMonth])
+ 
+VAR WorstMonthName =
+    MAXX(WorstMonth, [YearMonth])
+ 
+RETURN
+    FORMAT(PctChange, "+0.0%;-0.0%")
+        & " over period • "
+        & "Best: " & BestMonthName
+        & " (" & FORMAT(BestScore, "0") & ") • "
+        & "Worst: " & WorstMonthName
+        & " (" & FORMAT(WorstScore, "0") & ") • "
+        & FORMAT(MonthsAboveAvg, "0")
+        & " days above avg"
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Subtitle - Overdue = 
+VAR PctChange = [Analysis - Overdue Period Change %]
+VAR MonthsAboveAvg = [Analysis - Overdue Months Above Average]
+ 
+VAR MonthlyTable =
+    ADDCOLUMNS(
+        SUMMARIZE(
+            tblDepartmentSnapshots,
+            tblDepartmentSnapshots[SnapshotDate]
+        ),
+        "YearMonth",
+            FORMAT(tblDepartmentSnapshots[SnapshotDate], "YYYY-MM"),
+        "@MonthlyValue",
+            VAR CurrentDate = tblDepartmentSnapshots[SnapshotDate]
+            VAR CurrentYear = YEAR(CurrentDate)
+            VAR CurrentMonth = MONTH(CurrentDate)
+            VAR LastDateInMonth =
+                CALCULATE(
+                    MAX(tblDepartmentSnapshots[SnapshotDate]),
+                    FILTER(
+                        ALL(tblDepartmentSnapshots[SnapshotDate]),
+                        YEAR(tblDepartmentSnapshots[SnapshotDate]) = CurrentYear
+                            && MONTH(tblDepartmentSnapshots[SnapshotDate]) = CurrentMonth
+                    )
+                )
+            RETURN
+                CALCULATE(
+                    SUM(tblDepartmentSnapshots[Overdue]),
+                    tblDepartmentSnapshots[SnapshotDate] = LastDateInMonth
+                )
+    )
+ 
+VAR WorstMonth =
+    TOPN(
+        1,
+        MonthlyTable,
+        [@MonthlyValue],
+        DESC
+    )
+ 
+VAR BestMonth =
+    TOPN(
+        1,
+        MonthlyTable,
+        [@MonthlyValue],
+        ASC
+    )
+ 
+VAR BestScore =
+    MAXX(BestMonth, [@MonthlyValue])
+ 
+VAR WorstScore =
+    MAXX(WorstMonth, [@MonthlyValue])
+ 
+VAR BestMonthName =
+    MAXX(BestMonth, [YearMonth])
+ 
+VAR WorstMonthName =
+    MAXX(WorstMonth, [YearMonth])
+ 
+RETURN
+    FORMAT(PctChange, "+0.0%;-0.0%")
+        & " over period • "
+        & "Best: " & BestMonthName
+        & " (" & FORMAT(BestScore, "0") & ") • "
+        & "Worst: " & WorstMonthName
+        & " (" & FORMAT(WorstScore, "0") & ") • "
+        & FORMAT(MonthsAboveAvg, "0")
+        & " days above avg"

@@ -1,0 +1,21 @@
+Analysis - //NAME OF GRAPH Months Above Average = 
+VAR MonthlyValues =
+    ADDCOLUMNS(
+        VALUES(//NAME OF TABLE[SnapshotDate]),
+        "MonthlyValue",
+            CALCULATE(
+                SUM(//NAME OF TABLE[//NAME OF COL])
+            )
+    )
+VAR AverageMonthlyValue =
+    AVERAGEX(
+        MonthlyValues,
+        [MonthlyValue]
+    )
+RETURN
+    COUNTROWS(
+        FILTER(
+            MonthlyValues,
+            [MonthlyValue] > AverageMonthlyValue
+        )
+    )

@@ -1,0 +1,49 @@
+Analysis - Overdue Period Change % = 
+VAR StartDate =
+    CALCULATE (
+        MIN (//NAME OF TABLE[SnapshotDate]),
+        ALLSELECTED (//NAME OF TABLE[SnapshotDate])
+    )
+VAR EndDate =
+    CALCULATE (
+        MAX (//NAME OF TABLE[SnapshotDate]),
+        ALLSELECTED (//NAME OF TABLE[SnapshotDate])
+    )
+VAR StartValue =
+    CALCULATE (
+        SUM (//NAME OF TABLE[//NAME OF COL]),
+        //NAME OF TABLE[SnapshotDate] = StartDate
+    )
+VAR EndValue =
+    CALCULATE (
+        SUM (//NAME OF TABLE[//NAME OF COL]),
+        //NAME OF TABLE[SnapshotDate] = EndDate
+    )
+RETURN
+    DIVIDE ( EndValue - StartValue, EndValue )
+
+/////////////////////////////////////////////////////////////////////
+
+Analysis - Overdue Period Change % = 
+VAR StartDate =
+    CALCULATE (
+        MIN ( tblDepartmentSnapshots[SnapshotDate] ),
+        ALLSELECTED ( tblDepartmentSnapshots[SnapshotDate] )
+    )
+VAR EndDate =
+    CALCULATE (
+        MAX ( tblDepartmentSnapshots[SnapshotDate] ),
+        ALLSELECTED ( tblDepartmentSnapshots[SnapshotDate] )
+    )
+VAR StartValue =
+    CALCULATE (
+        SUM ( tblDepartmentSnapshots[Overdue] ),
+        tblDepartmentSnapshots[SnapshotDate] = StartDate
+    )
+VAR EndValue =
+    CALCULATE (
+        SUM ( tblDepartmentSnapshots[Overdue] ),
+        tblDepartmentSnapshots[SnapshotDate] = EndDate
+    )
+RETURN
+    DIVIDE ( EndValue - StartValue, EndValue )

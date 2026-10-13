@@ -1,0 +1,27 @@
+Title - //NAME OF GRAPH = VAR TrendValue = [Analysis - //NAME OF GRAPH]
+VAR TrendEmoji = 
+    SWITCH(
+        TrendValue,
+        "improving", "↗",
+        "declining", "↘",
+        "stable", "→",
+        ""
+    )
+
+RETURN
+"//NAME OF GRAPH is " & TrendValue & " " & TrendEmoji
+
+////////////////////////////////////////////////////////////////////////////////
+
+Title - Overdue = VAR TrendValue = [Analysis - Overdue]
+VAR TrendEmoji = 
+    SWITCH(
+        TrendValue,
+        "improving", "↗",
+        "declining", "↘",
+        "stable", "→",
+        ""
+    )
+
+RETURN
+"Overdue is " & TrendValue & " " & TrendEmoji
